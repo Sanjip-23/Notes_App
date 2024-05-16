@@ -26,7 +26,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	
 	 
 	 User u=new User();
-	 u.setName(name);
+	 u.setName(name); 
 	 u.setAge(age);
 	 u.setMobile(mobile);
 	 u.setEmail(email);

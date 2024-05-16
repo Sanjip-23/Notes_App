@@ -13,13 +13,14 @@ import com.org.dto.User;
 
 public class userDao 
 {
+	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sanjip");
+	  
+	EntityManager entityManager = entityManagerFactory.createEntityManager();
+	
+	EntityTransaction entityTransaction = entityManager.getTransaction();
+	
   public void saveAndUpdateUser(User user)
-  {
-	  EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sanjip");
-	  
-	  EntityManager entityManager = entityManagerFactory.createEntityManager();
-	  
-	  EntityTransaction entityTransaction = entityManager.getTransaction();
+  {  
 	  
 	  entityTransaction.begin();
 	  entityManager.merge(user);
@@ -28,26 +29,32 @@ public class userDao
   
   public User fetchUserById(int id) 
   {
-      EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sanjip");
+     
+	  return entityManager.find(User.class, id); 
+  }
+  
+  public User fetchUserByEmailAndPassword(String email,String password) {
+	  String q = "select s from User s where email=?1 and password = ?2";
+	  Query query = entityManager.createQuery(q);
+	  query.setParameter(1, email);
+	  query.setParameter(2, password);
 	  
-	  EntityManager entityManager = entityManagerFactory.createEntityManager();
-	  User user = entityManager.find(User.class, id);
+	  List<User> list = query.getResultList();
+	  if(list.isEmpty())
+		  return null;
 	  
-	  user.getId();
-	  user.getName();
-	  user.getAge();
-	  user.getMobile();
-	  user.getEmail();
-	  user.getPassword();
-	  
-	  return user;  
+	  return list.get(0);
+//	  int id=0;
+//	  for(User u : list) {
+//		  id=u.getId();
+//	  }
+//	  User user = entityManager.find(User.class, id);
+//	  return user;
   }
   
   public List<User> fetchAllUsers()
   {
-      EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sanjip");
-	  
-	  EntityManager entityManager = entityManagerFactory.createEntityManager();
+     
 	  Query query = entityManager.createQuery("select s from User s");
 	  List<User> list = query.getResultList();
 	   return list;

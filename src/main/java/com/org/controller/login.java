@@ -21,6 +21,19 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	String email = req.getParameter("email");
 	String password = req.getParameter("password");
 	
-	
+	userDao dao=new userDao();
+	User user = dao.fetchUserByEmailAndPassword(email, password);
+	 HttpSession session = req.getSession();
+	if(user != null) {
+		 session.setAttribute("alldata",user );
+	    
+		resp.sendRedirect("home.jsp");
+	}
+	else {
+		
+		
+		 session.setAttribute("fail", "login failed");
+		resp.sendRedirect("login.jsp");	
+	}
 }
 }
