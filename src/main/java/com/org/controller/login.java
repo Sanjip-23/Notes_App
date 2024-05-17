@@ -25,7 +25,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 	User user = dao.fetchUserByEmailAndPassword(email, password);
 	 HttpSession session = req.getSession();
 	if(user != null) {
-		 session.setAttribute("alldata",user );
+		 session.setAttribute("UserData",user );
 	    
 		resp.sendRedirect("home.jsp");
 	}

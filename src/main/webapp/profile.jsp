@@ -9,7 +9,7 @@
 </head>
 <body>
     <%
-	User validateUserSession = (User) session.getAttribute("alldata");
+	User validateUserSession = (User) session.getAttribute("UserData");
 	if (validateUserSession == null) {
 		response.sendRedirect("login.jsp");
 	} else {
@@ -17,7 +17,7 @@
 	<%@include file="components/homeNavBar.jsp"%>
 
 	<%
-	User details = (User) session.getAttribute("alldata");
+	User details = (User) session.getAttribute("UserData");
 	%>
 	<h1 class="text-center">
 		Welcome

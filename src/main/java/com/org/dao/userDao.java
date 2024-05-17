@@ -59,4 +59,13 @@ public class userDao
 	  List<User> list = query.getResultList();
 	   return list;
   }
+
+public void updateUserPasswordById(int id, String newPassword) {
+	// TODO Auto-generated method stub
+	User user = entityManager.find(User.class, id);
+	user.setPassword(newPassword);
+	entityTransaction.begin();
+	entityManager.merge(user);
+	entityTransaction.commit();
+}
 }
